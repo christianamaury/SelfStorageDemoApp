@@ -3,6 +3,13 @@ import React, {useState} from 'react';
 import { StyleSheet, Text, View, TextInput, Alert, TouchableOpacity } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import Svg, {Image, Path, Defs, Stop}from 'react-native-svg';
+//Component to managers our Navigation Tree
+import { NavigationContainer } from '@react-navigation/native';
+//Function that returns an object containing these 2 prooperties: Screen & Navigator
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
+//Home Component
+import Home from './screens/Home'; 
+
 
 export default function App() {
 
@@ -28,20 +35,22 @@ export default function App() {
     )
   }
 
+  const Stack = createNativeStackNavigator();
+
 //useState for the username and password variables;
 const [username, SetUsername] = useState('');
 const [password, SetPassword] = useState('');
 
-
 //An arrow function to handle the user credentials 
-const userCredentials = () => {
+const userCredentials = ({navigation}) => {
   const usernameLogin = 'christian';
   const passwordLogin = '12345';
 
   //If statement for the username & password
-  if(username === usernameLogin && password && passwordLogin)
+  if(username === usernameLogin && password === passwordLogin)
   {
       Alert.alert('Your login has been successful');
+      navigation.navigate('Home');
   }
   else{
     Alert.alert('Invalid username or password, please try again');
@@ -49,22 +58,25 @@ const userCredentials = () => {
 
 };
 
-  return (
+  return(
+
     <View style={styles.container}>
-      <SvgImage/>
-      <Text style={styles.MainTitle}> Welcome back </Text>
-      <Text style={styles.subTitle} > Sign in to your account </Text>
-      <TextInput placeholder= "Enter your email" style={styles.textInput} onChangeText={(text) => SetUsername(text)} value={username}/> 
-      <TextInput placeholder="password" style={styles.textInput} secureTextEntry onChangeText={(text) => SetPassword(text)} value={password} />
-      <TouchableOpacity onPress={userCredentials}>
-        <LinearGradient
-            colors={['#4c669f', '#3b5998', '#192f6a']}
-            style={styles.button}>
-            <Text style={styles.text}> Sign in to your account </Text>
-        </LinearGradient>
-    </TouchableOpacity>
-      <StatusBar style="auto" />
-    </View>
+    <SvgImage/>
+    <Text style={styles.MainTitle}> Welcome back </Text>
+    <Text style={styles.subTitle} > Sign in to your account </Text>
+    <TextInput placeholder= "Enter your email" style={styles.textInput} onChangeText={(text) => SetUsername(text)} value={username}/> 
+    <TextInput placeholder="password" style={styles.textInput} secureTextEntry onChangeText={(text) => SetPassword(text)} value={password} />
+    <TouchableOpacity onPress={userCredentials}>
+      <LinearGradient
+          colors={['#4c669f', '#3b5998', '#192f6a']}
+          style={styles.button}>
+          <Text style={styles.text}> Sign in to your account </Text>
+      </LinearGradient>
+  </TouchableOpacity>
+    <StatusBar style="auto" />
+  </View>
+
+
   );
 }
 
