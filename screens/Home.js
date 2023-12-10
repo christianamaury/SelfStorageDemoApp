@@ -4,8 +4,8 @@ import {Button, StyleSheet, Text, View} from 'react-native';
  const Home = () => {
     return (
         <View style={styles.container}>    
-            <Text> Hello </Text>   
-                <Button> Testing Details </Button>
+            <Text> Hello There! </Text>   
+                
         </View>
     )
 }
@@ -18,8 +18,6 @@ const styles = StyleSheet.create({
         backgroundColor: '#fff',
         alignItems: 'center',
         justifyCenter: 'center',
-
-
 
     },
 

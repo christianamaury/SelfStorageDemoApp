@@ -10,8 +10,7 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 //Home Component
 import Home from './screens/Home'; 
 
-
-export default function App() {
+export default function App({navigation}) {
 
   //Function to call our custom image
   function SvgImage(){
@@ -35,31 +34,35 @@ export default function App() {
     )
   }
 
-  const Stack = createNativeStackNavigator();
+const Stack = createNativeStackNavigator();
 
 //useState for the username and password variables;
 const [username, SetUsername] = useState('');
 const [password, SetPassword] = useState('');
 
-//An arrow function to handle the user credentials 
-const userCredentials = ({navigation}) => {
+//An arrow function to handle the user credentials
+//Issue: Cannot Read property 'navigate' of undefined. Unable to go to the next screen
+const userCredentials = () => {
   const usernameLogin = 'christian';
   const passwordLogin = '12345';
 
   //If statement for the username & password
   if(username === usernameLogin && password === passwordLogin)
   {
+      //If the user credentials are correct, move to the next screen
       Alert.alert('Your login has been successful');
+      
       navigation.navigate('Home');
   }
   else{
     Alert.alert('Invalid username or password, please try again');
+    //Testing the Navigation Hook:
+      navigation.navigate('Home');
   }
-
 };
 
+const MainLogin = () => {
   return(
-
     <View style={styles.container}>
     <SvgImage/>
     <Text style={styles.MainTitle}> Welcome back </Text>
@@ -75,10 +78,27 @@ const userCredentials = ({navigation}) => {
   </TouchableOpacity>
     <StatusBar style="auto" />
   </View>
-
-
   );
-}
+
+};
+
+  return (
+        <NavigationContainer>
+          <Stack.Navigator initialRouteName='IoECIA'>
+          <Stack.Screen
+              name='IoECIA'
+              component={MainLogin}
+            />
+
+          <Stack.Screen
+              name='Home'
+              component={Home}
+            
+            />    
+          </Stack.Navigator>
+        </NavigationContainer>
+  )
+};
 
 //Initianting Style Class: Apply to component
 const styles = StyleSheet.create({
