@@ -56,8 +56,7 @@ const userCredentials = () => {
   }
   else{
     Alert.alert('Invalid username or password, please try again');
-    //Testing the Navigation Hook:
-      navigation.navigate('Home');
+    
   }
 };
 
@@ -83,6 +82,7 @@ const MainLogin = () => {
 };
 
   return (
+
         <NavigationContainer>
           <Stack.Navigator initialRouteName='IoECIA'>
           <Stack.Screen
